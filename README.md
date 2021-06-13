@@ -9,6 +9,11 @@ python3"
 - Add library to make HTTTP requests
 - $ peotry add requests
 
+## Proof of Work (POW)
+- Mathematically determine a number that is difficult to find but easy to
+  verify.
+
+
 ### Block chain and Finance Notes.
 #### - The three roles of Money 
 1. Medium of Exchange
