@@ -1,6 +1,4 @@
 
-
-
 # What does a block look like?
 # ---> A Python Dictionary?
 # Each block contains the hash of th previous block.  IMUTABLE
