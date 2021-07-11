@@ -1,9 +1,14 @@
 # Representing a Blockchain with a Class
+import asyncio
 import json
+import math
 import random
-
-from datetime import datetime
 from hashlib import sha256
+from time import time
+
+import structlog
+
+logger = structlog.getLogger("blockchain")
 
 # Implementing Proof of Work
 # Rule: Find a number 'p' that when hashed with
@@ -14,24 +19,28 @@ class Blockchain(object):
     def __init__(self):
         self.chain = []
         self.pending_transactions = []
+        self.target = "0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 
         # Create the genesis block
         print("Creating genesis block")
         self.chain.append(self.new_block())
 
-    def new_block(self, previous_hash=None):
-        # Generates a new block and adds it to the chain
-        block = {
-            'index': len(self.chain),
-            'timestamp': datetime.utcnow().isoformat(),
-            'transactions': self.pending_transactions,
-            'previous_hash': self.last_block["hash"] if self.last_block else None,
-            'nonce': format(random.getrandbits(64),"x")
-        }
+    def new_block(self):
+        # # Generates a new block and adds it to the chain
+        # block = {
+        #     'index': len(self.chain),
+        #     'timestamp': datetime.utcnow().isoformat(),
+        #     'transactions': self.pending_transactions,
+        #     'previous_hash': self.last_block["hash"] if self.last_block else None,
+        #     'nonce': format(random.getrandbits(64),"x")
+        # }
         # Get the hash of this new block, and add it to the block.
-        block_hash = self.hash(block)
-        block["hash"] = block_hash
+        # block_hash = self.hash(block)
+        # block["hash"] = block_hash
 
+        block = self.create_block(
+            height=len(self.chain)
+        )
         # Reset the list of pending transactions
         self.pending_transactions = []
 
